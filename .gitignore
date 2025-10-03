@@ -1,0 +1,10 @@
+# Cache
+cache/data.json
+
+# OS ve IDE dosyaları
+*.log
+*.DS_Store
+.vscode/
+
+# Composer
+vendor/
