@@ -8,3 +8,6 @@ cache/data.json
 
 # Composer
 vendor/
+
+# .env
+.env

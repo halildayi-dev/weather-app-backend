@@ -7,8 +7,24 @@ class WeatherModel {
     private $hourlyData = [];
     private $dailyData = [];
 
-    public function __construct() {
+    public function __construct($updateCacheOnStart = true) {
+        if ($updateCacheOnStart) {
+            $this->updateCacheFromAPI(); // Do it with cron job after uploading it to the server.
+        }
         $this->loadData();
+    }
+
+    public function updateCacheFromAPI() {
+        $url = "https://api.open-meteo.com/v1/forecast?latitude=41.0082&longitude=28.9784&hourly=temperature_2m,precipitation,precipitation_probability,pressure_msl,uv_index,wind_speed_10m,weathercode&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,wind_speed_10m_max,sunrise,sunset,weathercode&forecast_days=10&timezone=auto";
+
+        $jsonData = file_get_contents($url);
+        if ($jsonData === false) {
+            error_log("Weather API call failed");
+            return false;
+        }
+
+        file_put_contents($this->cacheFile, $jsonData);
+        return true;
     }
 
     private function loadData() {
