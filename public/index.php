@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../app/Controllers/WeatherController.php';
+require_once __DIR__ . '/app/Controllers/WeatherController.php';
 
 $controller = new WeatherController();
 
