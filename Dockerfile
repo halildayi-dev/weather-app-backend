@@ -9,8 +9,9 @@ WORKDIR /var/www/html
 COPY public/ .
 COPY app/ ./app/
 COPY cache/ ./cache/
-RUN chown -R www-data:www-data ./cache \
-    && chmod -R 775 ./cache
+RUN mkdir -p /var/www/html/cache \
+    && chown -R www-data:www-data /var/www/html/cache \
+    && chmod -R 775 /var/www/html/cache
 
 EXPOSE 80
 CMD ["apache2-foreground"]
